@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Light – Next Generation Script Execution</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- FontAwesome for Discord icon -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-pVnY1E6+X3YkXQXgWf2P0W3hk6e8hEZo6GQ+GLs0x9OeOeG6PCXpO4hHdF6H3sJYc0aTJeHc4F9Bj+M6kt5u9g=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f001a, #1a0033);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 10;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-menu a {
+            margin: 0 16px;
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+            .nav-menu a:hover {
+                color: #fff;
+            }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            color: #fff;
+        }
+
+            .btn-discord:hover {
+                background: #4752c4;
+            }
+
+        .hero {
+            padding: 160px 0 80px;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            max-width: 50%;
+        }
+
+            .hero-text h1 {
+                font-size: 3rem;
+                line-height: 1.2;
+                font-weight: 700;
+            }
+
+        .highlight {
+            color: #4C8AFF;
+        }
+
+        .hero-text p {
+            margin: 20px 0 32px;
+            font-size: 1.125rem;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .hero-buttons .btn-primary {
+            background: #4C8AFF;
+            color: #fff;
+        }
+
+            .hero-buttons .btn-primary:hover {
+                background: #1c7ed6;
+            }
+
+        .hero-buttons .btn-outline {
+            background: transparent;
+            border: 2px solid #4C8AFF;
+            color: #4C8AFF;
+        }
+
+            .hero-buttons .btn-outline:hover {
+                background: rgba(30,144,255,0.1);
+            }
+
+        .hero-image {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 24px;
+            flex-shrink: 0;
+        }
+
+            .hero-image pre {
+                margin: 0;
+                font-family: 'Source Code Pro', monospace;
+                color: #fff;
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .hero-image code {
+                display: block;
+                white-space: pre-wrap;
+            }
+
+        /* FEATURES SECTION */
+        .features {
+            background: #120024;
+            padding: 60px 0;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .features-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .features-subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .feature-panel {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 300px;
+        }
+
+            .feature-panel h3 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+                color: #4C8AFF;
+            }
+
+            .feature-panel p {
+                color: #ccc;
+                font-size: 0.95rem;
+            }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-text, .hero-image {
+                max-width: 100%;
+            }
+
+            .container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="assets/mission.png" alt="Light Logo" />
+            </a>
+            <nav class="nav-menu">
+                <a href="#">Features</a>
+                <a href="#">Showcase</a>
+                <a href="#">Pricing</a>
+                <a href="#">FAQ</a>
+            </nav>
+            <a href="#" class="btn btn-discord">
+                <i class="fab fa-discord"></i> Join Discord
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>
+                    Next Generation<br>
+                    <span class="highlight">Script Execution</span>
+                </h1>
+                <p>
+                    Experience unmatched power and precision with Light’s cutting-edge Roblox executor.<br>
+                    Instant execution, unlimited possibilities.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Download</a>
+                    <a href="#" class="btn btn-outline">Watch Demo</a>
+                </div>
+                <!-- Additional Panels -->
+                <div class="extra-panels">
+                    <div class="panel">99% UNC</div>
+                    <div class="panel">0 Active Members Yet</div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <pre><code>
+// Initialize Light
+local light = require("light")
+
+-- Configure settings
+light.config({
+  bypass = "hyperion"
+})
+
+-- Execute script
+local success = light:execute(script)
+            </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION (BOTTOM) -->
+    <footer class="features">
+        <div class="features-container">
+            <h2 class="features-title">Features</h2>
+            <p class="features-subtitle">Experience the power of Light</p>
+            <div class="features-grid">
+                <div class="feature-panel">
+                    <h3>Instant Execution</h3>
+                    <p>Execute any script instantly with our optimized engine.</p>
+                </div>
+                <div class="feature-panel">
+                    <h3>Stable & Reliable</h3>
+                    <p>Built for performance and stability across all games.</p>
+                </div>
+                <div class="feature-panel">
+                    <h3>Auto Updates</h3>
+                    <p>Stay up to date with automatic updates and patches.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="features-container">
+            <h2 class="features-title">Features</h2>
+            <p class="features-subtitle">Experience the power of Light</p>
+            <div class="features-grid">
+                <div class="feature-panel">
+                    <h3>Instant Execution</h3>
+                    <p>Execute any script instantly with our optimized engine.</p>
+                </div>
+                <div class="feature-panel">
+                    <h3>Stable & Reliable</h3>
+                    <p>Built for performance and stability across all games.</p>
+                </div>
+                <div class="feature-panel">
+                    <h3>Auto Updates</h3>
+                    <p>Stay up to date with automatic updates and patches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
